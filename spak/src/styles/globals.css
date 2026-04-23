@@ -1,0 +1,307 @@
+/* src/styles/globals.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   INFANT JESUS BRAND TOKENS
+   ============================================================ */
+:root {
+  --ij-navy: #0D2B5E;
+  --ij-navy-deep: #071a3e;
+  --ij-navy-mid: #1a3d72;
+  --ij-navy-light: #2a5298;
+  --ij-gold: #C9922E;
+  --ij-gold-light: #e8b84b;
+  --ij-gold-pale: #f5e6c8;
+  --ij-white: #FAFBFD;
+  --ij-slate: #6B7A99;
+  --ij-slate-light: #E8EDF7;
+  --ij-success: #1B7A4D;
+  --ij-error: #B91C1C;
+  --ij-warning: #D97706;
+
+  /* Competition-specific */
+  --answer-a: #2563EB;
+  --answer-b: #7C3AED;
+  --answer-c: #D97706;
+  --answer-d: #059669;
+
+  --answer-a-bg: #EFF6FF;
+  --answer-b-bg: #F5F3FF;
+  --answer-c-bg: #FFFBEB;
+  --answer-d-bg: #ECFDF5;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-body);
+  color: var(--ij-navy);
+  background: var(--ij-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+/* ============================================================
+   UTILITY CLASSES
+   ============================================================ */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Brand colours */
+  .text-navy { color: var(--ij-navy); }
+  .text-gold { color: var(--ij-gold); }
+  .bg-navy { background-color: var(--ij-navy); }
+  .bg-navy-deep { background-color: var(--ij-navy-deep); }
+  .bg-gold { background-color: var(--ij-gold); }
+  .bg-gold-pale { background-color: var(--ij-gold-pale); }
+  .border-gold { border-color: var(--ij-gold); }
+  .border-navy { border-color: var(--ij-navy); }
+
+  /* Answer option colours */
+  .answer-a { background-color: var(--answer-a-bg); border-color: var(--answer-a); color: var(--answer-a); }
+  .answer-b { background-color: var(--answer-b-bg); border-color: var(--answer-b); color: var(--answer-b); }
+  .answer-c { background-color: var(--answer-c-bg); border-color: var(--answer-c); color: var(--answer-c); }
+  .answer-d { background-color: var(--answer-d-bg); border-color: var(--answer-d); color: var(--answer-d); }
+
+  /* Timer urgency states */
+  .timer-normal { color: var(--ij-navy); }
+  .timer-warning { color: var(--ij-warning); }
+  .timer-critical { color: var(--ij-error); }
+
+  /* Glassmorphism */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-navy {
+    background: rgba(13, 43, 94, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(201, 146, 46, 0.3);
+  }
+
+  /* Subtle gold shimmer for headers */
+  .gold-shimmer {
+    background: linear-gradient(135deg, var(--ij-gold) 0%, var(--ij-gold-light) 50%, var(--ij-gold) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* ============================================================
+   COMPETITION COMPONENTS
+   ============================================================ */
+@layer components {
+  /* Answer option button */
+  .answer-btn {
+    @apply relative w-full flex items-center gap-4 p-4 rounded-xl border-2 font-body font-medium text-left
+           transition-all duration-150 cursor-pointer select-none;
+  }
+
+  .answer-btn:hover:not(:disabled) {
+    @apply scale-[1.01] shadow-md;
+  }
+
+  .answer-btn:active:not(:disabled) {
+    @apply scale-[0.99];
+  }
+
+  .answer-btn:disabled {
+    @apply opacity-70 cursor-not-allowed;
+  }
+
+  .answer-btn.selected {
+    @apply ring-4 ring-offset-2;
+  }
+
+  .answer-btn.correct {
+    @apply bg-green-50 border-green-500 text-green-800 ring-4 ring-green-400;
+  }
+
+  .answer-btn.incorrect {
+    @apply bg-red-50 border-red-500 text-red-800;
+  }
+
+  /* Label badge on answer button */
+  .answer-label {
+    @apply flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center
+           text-sm font-bold font-mono;
+  }
+
+  /* Timer ring */
+  .timer-ring {
+    @apply relative inline-flex items-center justify-center;
+  }
+
+  /* Status badge */
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .status-badge.waiting {
+    @apply bg-slate-100 text-slate-600;
+  }
+
+  .status-badge.active {
+    @apply bg-blue-100 text-blue-700;
+  }
+
+  .status-badge.submitted {
+    @apply bg-amber-100 text-amber-700;
+  }
+
+  .status-badge.locked {
+    @apply bg-gray-100 text-gray-600;
+  }
+
+  .status-badge.revealed {
+    @apply bg-green-100 text-green-700;
+  }
+
+  .status-badge.eliminated {
+    @apply bg-red-100 text-red-700;
+  }
+
+  /* Admin control button */
+  .admin-btn {
+    @apply inline-flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-sm
+           transition-all duration-150 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .admin-btn-primary {
+    @apply admin-btn bg-navy text-white hover:bg-navy-deep;
+  }
+
+  .admin-btn-gold {
+    @apply admin-btn bg-gold text-white hover:brightness-110;
+  }
+
+  .admin-btn-danger {
+    @apply admin-btn bg-red-600 text-white hover:bg-red-700;
+  }
+
+  .admin-btn-ghost {
+    @apply admin-btn border border-slate-200 bg-white text-navy hover:bg-slate-50;
+  }
+
+  /* Card */
+  .ij-card {
+    @apply bg-white border border-slate-200 rounded-xl shadow-sm;
+  }
+}
+
+/* ============================================================
+   PROJECTOR SCREEN STYLES
+   ============================================================ */
+.screen-mode {
+  font-size: clamp(16px, 2vw, 24px);
+}
+
+.screen-question {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  line-height: 1.3;
+}
+
+.screen-answer {
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+}
+
+.screen-timer {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 8vw, 7rem);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes pulse-ring {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes timer-tick {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes reveal-glow {
+  0% { box-shadow: 0 0 0 0 rgba(201, 146, 46, 0.4); }
+  70% { box-shadow: 0 0 0 20px rgba(201, 146, 46, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(201, 146, 46, 0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-reveal-glow {
+  animation: reveal-glow 1s ease-out;
+}
+
+.animate-timer-tick {
+  animation: timer-tick 1s ease-in-out infinite;
+}
+
+/* Staggered children */
+.stagger-children > * {
+  opacity: 0;
+  animation: slide-up 0.3s ease-out forwards;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
