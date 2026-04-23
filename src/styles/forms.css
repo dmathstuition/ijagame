@@ -1,0 +1,24 @@
+/* Append to globals.css or import separately */
+/* Form element utilities */
+
+@layer components {
+  .form-label {
+    @apply block text-sm font-semibold text-navy mb-1.5 font-body;
+  }
+
+  .form-input {
+    @apply w-full px-3.5 py-2.5 rounded-lg border border-slate-200 bg-white
+           text-navy text-sm font-body
+           focus:outline-none focus:border-[var(--ij-navy)] focus:ring-2 focus:ring-[var(--ij-navy)]/10
+           transition-all duration-150
+           disabled:opacity-50 disabled:bg-slate-50 disabled:cursor-not-allowed;
+  }
+
+  select.form-input {
+    @apply cursor-pointer;
+  }
+
+  textarea.form-input {
+    @apply leading-relaxed;
+  }
+}
